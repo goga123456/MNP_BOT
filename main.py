@@ -71,7 +71,7 @@ async def lang_choose(message: types.Message, state: FSMContext) -> None:
 
 button_text = 'Хотите связаться с оператором?'
 button_options = ['Связаться']
-message = {
+message_btn = {
     'text': button_text,
     'buttons': button_options
 }
@@ -98,7 +98,7 @@ async def number_send(message: types.Message, state: FSMContext) -> None:
             if message.text == lang_dict['connect'][data['lang']]:
                 #await bot.send_message(chat_id=message.from_user.id,
                 #                       text=lang_dict['connect_about'][data['lang']])
-                response = requests.post(f'https://api.livetex.ru/bot/v1/{TOKEN_API}/message', json=message)
+                response = requests.post(f'https://api.livetex.ru/bot/v1/{TOKEN_API}/message', json=message_btn)
 
                 # Проверьте статус ответа
                 if response.status_code == 200:
