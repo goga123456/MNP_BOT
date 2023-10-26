@@ -103,8 +103,8 @@ async def number_send(message: types.Message, state: FSMContext) -> None:
                 # Проверьте статус ответа
                 if response.status_code == 200:
                     print('Сообщение с кнопками успешно отправлено')
-                #else:
-                    #print('Ошибка при отправке сообщения с кнопками')
+                else:
+                    print('Ошибка при отправке сообщения с кнопками')
             if message.text == lang_dict['back'][data['lang']]:
                 await state.finish()
                 await bot.send_message(chat_id=message.from_user.id,
@@ -114,10 +114,6 @@ async def number_send(message: types.Message, state: FSMContext) -> None:
         await bot.send_message(chat_id=message.from_user.id,
                            text="Выберите вариант кнопкой!")
 
-
-
-#if __name__ == '__main__':
-#    executor.start_polling(dp, skip_updates=True)
 async def on_startup(dispatcher):
     await bot.set_webhook(WEBHOOK_URL, drop_pending_updates=True)
 async def on_shutdown(dispatcher):
