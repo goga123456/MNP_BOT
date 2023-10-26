@@ -32,5 +32,5 @@ typing_extensions==4.8.0
 tzdata==2023.3
 tzlocal==5.1
 yarl==1.9.2
-
+requests-2.31.0
 
