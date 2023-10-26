@@ -1,12 +1,11 @@
 import logging
 import os
-
+import requests
 from aiogram import Bot, Dispatcher
 from aiogram import executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
 from aiogram.utils.executor import start_webhook
-
 from config import TOKEN_API
 from markups.reply_mrkps import *
 from markups.reply_mrkps import markup_language
@@ -70,6 +69,12 @@ async def lang_choose(message: types.Message, state: FSMContext) -> None:
         await bot.send_message(chat_id=message.from_user.id,
                                text="Выберите вариант кнопкой!")
 
+button_text = 'Хотите связаться с оператором?'
+button_options = ['Связаться']
+message = {
+    'text': button_text,
+    'buttons': button_options
+}
 
 @dp.message_handler(content_types=types.ContentType.TEXT, state=ProfileStatesGroup.razdel)
 async def number_send(message: types.Message, state: FSMContext) -> None:
@@ -91,8 +96,15 @@ async def number_send(message: types.Message, state: FSMContext) -> None:
                 await bot.send_message(chat_id=message.from_user.id,
                                        text=lang_dict['use_about'][data['lang']])
             if message.text == lang_dict['connect'][data['lang']]:
-                await bot.send_message(chat_id=message.from_user.id,
-                                       text=lang_dict['connect_about'][data['lang']])
+                #await bot.send_message(chat_id=message.from_user.id,
+                #                       text=lang_dict['connect_about'][data['lang']])
+                response = requests.post(f'https://api.livetex.ru/bot/v1/{TOKEN_API}/message', json=message)
+
+                # Проверьте статус ответа
+                if response.status_code == 200:
+                    print('Сообщение с кнопками успешно отправлено')
+                else:
+                    print('Ошибка при отправке сообщения с кнопками')
             if message.text == lang_dict['back'][data['lang']]:
                 await state.finish()
                 await bot.send_message(chat_id=message.from_user.id,
