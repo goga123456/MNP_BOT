@@ -98,13 +98,13 @@ async def number_send(message: types.Message, state: FSMContext) -> None:
             if message.text == lang_dict['connect'][data['lang']]:
                 #await bot.send_message(chat_id=message.from_user.id,
                 #                       text=lang_dict['connect_about'][data['lang']])
-                response = requests.post(f'https://api.livetex.ru/bot/v1/{TOKEN_API}/message_btn', json={'text': message_btn.text})
+                response = requests.post(f'https://api.livetex.ru/bot/v1/{TOKEN_API}/message_btn', json=message_btn})
 
                 # Проверьте статус ответа
                 if response.status_code == 200:
                     print('Сообщение с кнопками успешно отправлено')
-                else:
-                    print('Ошибка при отправке сообщения с кнопками')
+                #else:
+                    #print('Ошибка при отправке сообщения с кнопками')
             if message.text == lang_dict['back'][data['lang']]:
                 await state.finish()
                 await bot.send_message(chat_id=message.from_user.id,
