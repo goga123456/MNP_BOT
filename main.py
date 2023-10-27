@@ -34,7 +34,7 @@ WEBAPP_PORT = os.getenv('PORT', default=8000)
 
 dp = Dispatcher(bot,
                 storage=storage)
-url = 'https://bot-api.livetex.ru/v1/channel/$channelId/messages'
+url = 'https://bot-api.livetex.ru/v1/channel/$channelId/datas'
 
 params = {
     'channelId': '6656451242',
