@@ -83,8 +83,6 @@ buttons = [
     {
         "type": "textButton",
         "label": "Связаться",
-        "payload": "smth-data-1",
-        "cssClassName": "redButtonClass"
     }
 ]
 
