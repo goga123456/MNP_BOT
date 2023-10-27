@@ -82,7 +82,7 @@ message_text = "Хотите связаться с оператором?"
 buttons = [
     {
         "type": "textButton",
-        "text": "Связаться",
+        "label": "Связаться"
     }
 ]
 
