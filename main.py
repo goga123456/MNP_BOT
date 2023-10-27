@@ -87,7 +87,7 @@ buttons = [
 ]
 
 # Формирование тела запроса
-data = {
+datas = {
     'text': message_text,
     'buttons': buttons
 }
@@ -113,7 +113,7 @@ async def number_send(message: types.Message, state: FSMContext) -> None:
                 await bot.send_message(chat_id=message.from_user.id,
                                        text=lang_dict['use_about'][data['lang']])
             if message.text == lang_dict['connect'][data['lang']]:
-                response = requests.post(url, params=params, json=data)
+                response = requests.post(url, params=params, json=datas)
                 if response.status_code == 200:
                     print('Сообщение успешно отправлено!')
                 else:
