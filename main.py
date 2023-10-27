@@ -34,6 +34,13 @@ WEBAPP_PORT = os.getenv('PORT', default=8000)
 
 dp = Dispatcher(bot,
                 storage=storage)
+url = 'https://api.livetex.ru/v1/channel/$channelId/messages'
+
+params = {
+    'channelId': '6656451242',
+    'accessToken': '6:0b3f3c77-de6c-4338-b860-8846bee8329d'
+}
+
 
 
 
@@ -69,12 +76,22 @@ async def lang_choose(message: types.Message, state: FSMContext) -> None:
         await bot.send_message(chat_id=message.from_user.id,
                                text="Выберите вариант кнопкой!")
 
-button_text = 'Хотите связаться с оператором?'
-button_options = ['Связаться']
-message_btn = {
-    'text': button_text,
-    'buttons': button_options
+message_text = 'Хотите связаться с оператором?'
+
+# Кнопки
+buttons = [
+    {
+        'text': 'Связаться',
+        'callback_data': 'button1'
+    }
+]
+
+# Формирование тела запроса
+data = {
+    'text': message_text,
+    'buttons': buttons
 }
+
 
 @dp.message_handler(content_types=types.ContentType.TEXT, state=ProfileStatesGroup.razdel)
 async def number_send(message: types.Message, state: FSMContext) -> None:
@@ -96,14 +113,15 @@ async def number_send(message: types.Message, state: FSMContext) -> None:
                 await bot.send_message(chat_id=message.from_user.id,
                                        text=lang_dict['use_about'][data['lang']])
             if message.text == lang_dict['connect'][data['lang']]:
-                #await bot.send_message(chat_id=message.from_user.id,
-                #                       text=lang_dict['connect_about'][data['lang']])
-                response = requests.post(f'https://bot-api.livetex.ru/bot/v1/{TOKEN_API}/message_btn', json=message_btn)
-                # Проверьте статус ответа
+                response = requests.post(url, params=params, json=data)
                 if response.status_code == 200:
-                    print('Сообщение с кнопками успешно отправлено')
+                    print('Сообщение успешно отправлено!')
                 else:
-                    print('Ошибка при отправке сообщения с кнопками')
+                    print('Ошибка при отправке сообщения:', response.text)  
+           
+
+
+
             if message.text == lang_dict['back'][data['lang']]:
                 await state.finish()
                 await bot.send_message(chat_id=message.from_user.id,
