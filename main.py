@@ -76,13 +76,13 @@ async def lang_choose(message: types.Message, state: FSMContext) -> None:
         await bot.send_message(chat_id=message.from_user.id,
                                text="Выберите вариант кнопкой!")
 
-message_text = ["Хотите связаться с оператором?"]
+message_text = "Хотите связаться с оператором?"
 
 # Кнопки
 buttons = [
     {
         "type": "textButton",
-        "label": "Связаться",
+        "text": "Связаться",
     }
 ]
 
