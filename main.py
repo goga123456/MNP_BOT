@@ -81,7 +81,7 @@ message_text = "Хотите связаться с оператором?"
 # Кнопки
 buttons = [
     {
-        "type": "textButton"
+        "type": "textButton",
         "label": "Связаться",
         "payload": "smth-data-1",
         "cssClassName": "redButtonClass"
