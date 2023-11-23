@@ -17,7 +17,7 @@ from states import ProfileStatesGroup
 #dp = Dispatcher(bot, storage=storage)
 
 storage = MemoryStorage()
-TOKEN = os.getenv('BOT_TOKEN')
+TOKEN = os.getenv('TOKEN_API')
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 
